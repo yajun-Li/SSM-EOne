@@ -5,6 +5,9 @@ package cn.Liyajun.pojo;
  * @date 2021/1/14-21:29
  */
 public class User {
+
+
+    /*我就是改一下*/
     private int id;
     private String name;
     private String password;
