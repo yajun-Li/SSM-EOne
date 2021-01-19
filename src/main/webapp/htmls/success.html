@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://localhost:8080/SSM_EOne/js/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<span id="name"></span>
+<span id="name2"></span>
+登录成功
+<form method="post" id="form">
+    姓名：<input type="text" name="name"><br>
+    密码：<input type="text" name="password"><br>
+</form>
+<button type="submit" id="btn1">注册</button>
+<span id="addMsg"></span>
+<script>
+    console.log(localStorage.getItem("name"));
+    $(function () {
+        // $('#name').innerText(localStorage.getItem(name));
+        $('#name2').text(localStorage.getItem("name"));
+        $('#btn1').click(function () {
+            $.ajax({
+                url:'http://localhost:8080/SSM_EOne/addUser2',
+                type:'post',
+                data:$('#form').serialize(),
+                dataType:'json',
+                success:function (res) {
+                    if (res.mark==1){
+                        $('#addMsg').text('添加用户成功');
+                    }else {
+                        $('#addMsg').text('添加用户失败');
+                    }
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>

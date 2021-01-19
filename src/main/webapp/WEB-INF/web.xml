@@ -1,0 +1,79 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+
+  <!--Spring配置文件读取配置-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationConfig.xml</param-value>
+  </context-param>
+
+  <!--字符过滤器-->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!--监听SpringMVC环境（上下文）的加载-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!--前端控制器-->
+  <servlet>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:springmvc.xml</param-value>
+    </init-param>
+  </servlet>
+
+  <!--Druid-->
+  <servlet>
+    <servlet-name>DruidStatServlet</servlet-name>
+    <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+    <init-param>
+      <param-name>loginUsername</param-name>
+      <!--druid,设置默认登录名-->
+      <param-value>druid</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loginPassword</param-name>
+      <!--druid,设置默认登录密码-->
+      <param-value>123456</param-value>
+    </init-param>
+  </servlet>
+
+  <!--dispatcherServlet-->
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <!--Druid-->
+  <servlet-mapping>
+    <servlet-name>DruidStatServlet</servlet-name>
+    <url-pattern>/sys/druid/*</url-pattern>
+  </servlet-mapping>
+
+  <!--The content of element type "web-app" must match
+  "(icon?,display-name?,description?,distributable?,context-param*,filter*,filter-mapping*,
+  listener*,servlet*,servlet-mapping*,session-config?,mime-mapping*,welcome-file-list?,
+  error-page*,taglib*,resource-env-ref*,resource-ref*,security-constraint*,login-config?,
+  security-role*,env-entry*,ejb-ref*,ejb-local-ref*)"-->
+</web-app>
